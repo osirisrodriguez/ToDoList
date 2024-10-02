@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tareas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Diseño/Agenda.css"> <!-- Aquí enlazamos el archivo CSS -->
+    <script src="../javaScrips/Agenda.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <div class="list roundBorder">
+        <div class="date">
+            <div class="dateRight">
+                <div id="dateNumber"></div>
+                <div>
+                    <div id="dateMonth"></div>
+                    <div id="dateYear"></div>
+                </div>
+            </div>
+            <div id="dateText"></div>
+        </div>
+        <form onsubmit="addNewTask(event)" >
+            <input type="text" name="taskText" autocomplete="off" placeholder="Nueva tarea" class="roundBorder">
+            <button type="button" class="addTaskButton" onclick="openAddTaskModal()">+</button>
+            <button type="button" class="orderButton roundBorder" onclick="renderOrderedTasks()">Ordenar</button>
+        </form>
+        <div id="tasksContainer"></div>
+        <button type="button" onclick="window.location.href='file:///C:/Users/sisoo/Desktop/to_do_list/rsc/vista/index.html';">Regresar</button>
+
+        <!-- Modal existente para editar y eliminar tareas -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <div id="modalBody">
+                    <!-- El contenido del modal se llenará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para agregar nueva tarea -->
+        <div id="addTaskModal" class="modal">
+            <div class="modal-content">
+                <span id="closeAddTaskModal" class="close">&times;</span>
+                <h2>Agregar Nueva Tarea</h2>
+                <label for="newTaskTitle">Título:</label>
+                <input type="text" id="newTaskTitle" placeholder="Título de la tarea" />
+
+                <label for="newTaskDate">Fecha:</label>
+                <input type="date" id="newTaskDate" />
+
+                <label for="newTaskText">Descripción:</label>
+                <textarea id="newTaskText" placeholder="Descripción de la tarea"></textarea>
+
+                <button id="saveNewTaskButton">Guardar</button>
+            </div>
+        </div>
+
+    </div>  
+</body>
+</html>

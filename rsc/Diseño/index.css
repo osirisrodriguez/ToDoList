@@ -1,0 +1,41 @@
+.fondo {
+
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform.5s ease height 2s ease;
+    transform: scale(0);
+}
+
+.fondo.active-btn{
+    transform: scale(1);
+}
+
+.fondo .active{
+    height: 455px;
+}
+
+.fondo .contenedor-form{
+    width: 100%;
+    padding: 40px;
+}
+
+.fondo.contenedor-form.login{
+    transition: 17s ease;
+    transform: translateX(0);
+}
+
+.fondo .active .contenedor-form.login{
+    transition: none;
+    transform: translateX(-400px);
+}
+

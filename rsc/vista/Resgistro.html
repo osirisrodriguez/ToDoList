@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+<body>
+
+    <h1>Registrarse</h1>
+
+    <input type="text" id="usuario" placeholder="Usuario">
+    <input type="password" id="clave" placeholder="Clave">
+    <input type="password" id="confirmarClave" placeholder="Confirmar clave">
+    <button id="registerButton" type="button">Registrarse</button>
+    
+    <button type="button" onclick="window.location.href='file:///C:/Users/sisoo/Desktop/to_do_list/rsc/vista/index.html';">Regresar</button>
+
+    <script>
+        const registro = () => {
+            // Obtener los valores de los campos de entrada
+            const usuario = document.getElementById('usuario').value;
+            const clave = document.getElementById('clave').value;
+            const confirmarClave = document.getElementById('confirmarClave').value;
+
+            // Validar que los campos no estén vacíos
+            if (!usuario || !clave || !confirmarClave) {
+                alert('Por favor, rellena todos los campos');
+                return;
+            }
+
+            // Validar que las claves coincidan
+            if (clave !== confirmarClave) {
+                alert('Las claves no coinciden');
+                return;
+            }
+
+            // Hacer la solicitud POST al servidor para registrar el usuario
+            fetch('../php/registro.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `usuario=${encodeURIComponent(usuario)}&clave=${encodeURIComponent(clave)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                    window.location.href = 'login.html'; // Redirigir a la página de login
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al registrar el usuario');
+            });
+        };
+
+        // Asignar la función al botón de registro
+        document.getElementById('registerButton').addEventListener('click', registro);
+    </script>
+
+</body>
+</html>
