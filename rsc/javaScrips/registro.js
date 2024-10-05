@@ -16,7 +16,7 @@ const registro = () => {
         return;
     }
 
-    // Verificar si el nombre de usuario ya está registrado
+    // Verificar si el nombre de usuario ya está registrado en localStorage
     if (localStorage.getItem(usuario)) {
         alert('El nombre de usuario ya está registrado. Por favor, inicia sesión.');
         return;
@@ -35,7 +35,7 @@ const registro = () => {
     document.getElementById('confirmarClave').value = '';
 
     // Redirigir al usuario a la página de inicio de sesión
-    window.location.href = 'file:///C:/Users/sisoo/Desktop/to_do_list/rsc/vista/login.html';  
+    window.location.href = 'login.html';  // Cambia la ruta según tu estructura de archivos
 };
 
 // Asignar la función al botón de registro

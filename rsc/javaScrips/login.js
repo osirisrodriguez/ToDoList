@@ -10,25 +10,28 @@ const login = () => {
         return;
     }
 
-    // Enviar los datos al servidor usando fetch
-    fetch('login.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ usuario: usuarioIngresado, clave: passwordIngresado })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Login exitoso');
-            window.location.href = 'agenda.html'; // Redirigir a la página de agenda
-        } else {
-            alert(data.message);
+    // Obtener los datos del usuario almacenado en localStorage
+    const usuarioGuardado = localStorage.getItem(usuarioIngresado);
+
+    // Validar si el usuario existe
+    if (!usuarioGuardado) {
+        // Mostrar alerta con opción de redirigir a la página de registro
+        if (confirm('El usuario no está registrado. ¿Deseas registrarte?')) {
+            // Si se acepta, redirigir a la página de registro
+            window.location.href = 'http://127.0.0.1:5500/rsc/vista/index.html'; // Cambia a la ruta de tu página de registro
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un problema con el servidor. Inténtalo de nuevo más tarde.');
-    });
+        return;
+    }
+
+    // Si el usuario existe, proceder sin validar la contraseña
+    localStorage.setItem('usuario', JSON.stringify({
+        nombreUsuario: usuarioIngresado,
+        ultimoLogin: new Date().toLocaleString()
+    }));
+
+    alert('Login exitoso');
+    window.location.href = 'Agenda.html'; // Redirigir a la página de agenda
 };
+
+// Asignar la función al botón de inicio de sesión
+document.getElementById('loginButton').addEventListener('click', login);
