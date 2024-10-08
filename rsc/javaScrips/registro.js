@@ -10,9 +10,9 @@ const registro = () => {
         return;
     }
 
-    // Validar que las claves coincidan
+    // Validar que las contraseñas coincidan
     if (clave !== confirmarClave) {
-        alert('Las claves no coinciden');
+        alert('Las contraseñas no coinciden');
         return;
     }
 
@@ -34,8 +34,8 @@ const registro = () => {
     document.getElementById('clave').value = '';
     document.getElementById('confirmarClave').value = '';
 
-    // Redirigir al usuario a la página de inicio de sesión
-    window.location.href = 'login.html';  // Cambia la ruta según tu estructura de archivos
+    // Redirigir a la página de login
+    window.location.href = 'login.html'; // Cambia la ruta según tu estructura de archivos
 };
 
 // Asignar la función al botón de registro

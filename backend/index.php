@@ -1,14 +1,42 @@
 <?php
-// Datos de conexión
-$servidor = "localhost";  // Puede ser '127.0.0.1' o una dirección IP
-$usuario = "root";  // El nombre de usuario de la base de datos
-$password = "";  // La contraseña del usuario
-$base_datos = "to do list";  // El nombre de tu base de datos
+// Parámetros de conexión
+$servername = "localhost";  // O IP del servidor de MariaDB
+$username = "";   // El usuario de la base de datos
+$password = ""; // La contraseña del usuario
+$dbname = "to_do_list";     // El nombre de la base de datos
 
 // Crear la conexión
-$conexion = new mysqli($servidor, $usuario, $password, $base_datos);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-var_dump("hola");
-$conexion->close();
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
+}
+
+// Verificar si se han enviado los datos vía POST
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Recibir los datos del formulario
+    $usuario = $_POST['usuario'];
+    $clave = $_POST['clave'];
+
+    // Verificar si el usuario ya existe
+    $sql_check = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
+    $result_check = $conn->query($sql_check);
+
+    if ($result_check->num_rows > 0) {
+        echo "El usuario ya está registrado. Por favor, elige otro nombre.";
+    } else {
+        // Insertar el nuevo usuario en la base de datos
+        $sql = "INSERT INTO usuarios (usuario, password) VALUES ('$usuario', '$clave')";
+        
+        if ($conn->query($sql) === TRUE) {
+            echo "Usuario registrado con éxito";
+        } else {
+            echo "Error al registrar el usuario: " . $conn->error;
+        }
+    }
+}
+
+// Cerrar la conexión
+$conn->close();
 ?>
-
